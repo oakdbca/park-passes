@@ -35,8 +35,9 @@ RUN update-ca-certificates
 RUN apt-get install --no-install-recommends -y sqlite3 vim postgresql-client ssh htop libspatialindex-dev
 
 WORKDIR /app
-RUN mkdir ~/.ssh/
-RUN ssh-keyscan github.com >> ~/.ssh/known_hosts
+#RUN mkdir ~/.ssh/
+#RUN ssh-keyscan github.com >> ~/.ssh/known_hosts
+RUN ssh -vT git@github.com
 RUN git clone -v -b $BRANCH git@github.com:mintcoding/$REPO.git .
 #RUN git clone -v -b $BRANCH https://github.com/dbca-wa/$REPO.git .
 
