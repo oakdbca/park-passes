@@ -45,14 +45,13 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 RUN pip install --upgrade pip
 
 WORKDIR /app
-RUN git clone -b $BRANCH https://github.com/dbca-wa/park-passes.git .
+RUN git clone -b $BRANCH https://github.com/dbca-wa/$REPO.git .
 
 ENV POETRY_VERSION=1.1.13
 RUN pip install "poetry==$POETRY_VERSION"
 RUN poetry config virtualenvs.create false \
   && poetry install --no-dev --no-interaction --no-ansi
 
-RUN . .venv/bin/activate
 RUN touch /app/rand_hash
 RUN git pull && cd $REPO_NO_DASH/frontend/$REPO_NO_DASH/
 RUN npm run build && cd /app
