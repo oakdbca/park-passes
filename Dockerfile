@@ -26,18 +26,18 @@ RUN echo $REPO
 RUN echo $REPO_NO_DASH
 
 
+RUN apt-get clean
+RUN apt-get update
+RUN apt-get upgrade -y
+RUN apt-get install --no-install-recommends -y curl wget git libmagic-dev gcc binutils libproj-dev gdal-bin
+
 WORKDIR /app
 #RUN mkdir ~/.ssh/
 #RUN ssh-keyscan github.com >> ~/.ssh/known_hosts
 #RUN git clone -v -b $BRANCH git@github.com:mintcoding/$REPO.git .
 RUN git clone -v -b $BRANCH https://github.com/dbca-wa/$REPO.git .
 
-RUN apt-get clean
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install --no-install-recommends -y curl wget git libmagic-dev gcc binutils libproj-dev gdal-bin
 RUN apt-get install --no-install-recommends -y sqlite3 vim postgresql-client ssh htop libspatialindex-dev
-
 RUN apt-get install --no-install-recommends -y python3-setuptools python3-dev python3-pip tzdata libreoffice cron rsyslog python3.8-venv gunicorn
 RUN apt-get install --no-install-recommends -y libpq-dev patch
 RUN apt-get install --no-install-recommends -y postgresql-client mtr
