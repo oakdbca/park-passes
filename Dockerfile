@@ -2,7 +2,7 @@
 FROM ubuntu:20.04 as builder_base_parkpasses
 MAINTAINER asi@dbca.wa.gov.au
 
-#ARG DEBIAN_FRONTEND=noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 #ENV DEBUG=True
 ENV TZ=Australia/Perth
 ENV EMAIL_HOST="smtp.corporateict.domain"
