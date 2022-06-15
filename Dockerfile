@@ -2,7 +2,7 @@
 FROM ubuntu:20.04 as builder_base_parkpasses
 MAINTAINER asi@dbca.wa.gov.au
 
-ENV DEBIAN_FRONTEND=noninteractive
+#ARG DEBIAN_FRONTEND=noninteractive
 #ENV DEBUG=True
 ENV TZ=Australia/Perth
 ENV EMAIL_HOST="smtp.corporateict.domain"
@@ -25,6 +25,9 @@ RUN echo $BRANCH
 RUN echo $REPO
 RUN echo $REPO_NO_DASH
 
+WORKDIR /app
+RUN git clone -b $BRANCH git@github.com:dbca-wa/$REPO.git .
+
 RUN apt-get clean
 RUN apt-get update
 RUN apt-get upgrade -y
@@ -44,8 +47,8 @@ RUN apt-get install -y nodejs
 RUN ln -s /usr/bin/python3 /usr/bin/python
 RUN pip install --upgrade pip
 
-WORKDIR /app
-RUN git clone -b $BRANCH https://github.com/dbca-wa/$REPO.git .
+#WORKDIR /app
+#RUN git clone -b $BRANCH https://github.com/dbca-wa/$REPO.git .
 
 ENV POETRY_VERSION=1.1.13
 RUN pip install "poetry==$POETRY_VERSION"
