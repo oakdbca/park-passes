@@ -30,6 +30,8 @@ RUN apt-get clean
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install --no-install-recommends -y curl wget git libmagic-dev gcc binutils libproj-dev gdal-bin
+RUN apt-get -y install ca-certificates
+RUN update-ca-certificates
 
 WORKDIR /app
 #RUN mkdir ~/.ssh/
@@ -43,8 +45,6 @@ RUN apt-get install --no-install-recommends -y libpq-dev patch
 RUN apt-get install --no-install-recommends -y postgresql-client mtr
 RUN apt-get install --no-install-recommends -y python-pil
 # install node 16
-RUN apt-get -y install ca-certificates
-RUN update-ca-certificates
 RUN touch install_node.sh
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x -o install_node.sh
 RUN chmod +x install_node.sh && ./install_node.sh
