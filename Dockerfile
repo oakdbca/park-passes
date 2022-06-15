@@ -20,7 +20,8 @@ ENV BPAY_ALLOWED=False
 #ENV REPO="park-passes"
 #ENV REPO_NO_DASH="parkpasses"
 
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x > install_node.sh
+RUN touch install_node.sh
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x -o install_node.sh
 RUN chmod +x install_node.sh && ./install_node.sh
 RUN apt-get install -y nodejs
 
