@@ -20,6 +20,10 @@ ENV BPAY_ALLOWED=False
 #ENV REPO="park-passes"
 #ENV REPO_NO_DASH="parkpasses"
 
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x > install_node.sh
+RUN chmod +x install_node.sh && ./install_node.sh
+RUN apt-get install -y nodejs
+
 RUN apt-get clean
 RUN apt-get update
 RUN apt-get upgrade -y
@@ -30,7 +34,6 @@ RUN apt-get install --no-install-recommends -y postgresql-client mtr
 RUN apt-get install --no-install-recommends -y sqlite3 vim postgresql-client ssh htop libspatialindex-dev
 RUN apt-get install --no-install-recommends -y python-pil
 # install node 16
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - apt-get install -y nodejs
 
 RUN ln -s /usr/bin/python3 /usr/bin/python
 RUN pip install --upgrade pip
