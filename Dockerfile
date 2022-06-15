@@ -16,9 +16,10 @@ ENV SITE_PREFIX='lals-dev'
 ENV SITE_DOMAIN='dbca.wa.gov.au'
 ENV OSCAR_SHOP_NAME='Parks & Wildlife'
 ENV BPAY_ALLOWED=False
-#ENV BRANCH="dev"
-#ENV REPO="park-passes"
-#ENV REPO_NO_DASH="parkpasses"
+ARG BRANCH
+ARG REPO
+ARG REPO_NO_DASH
+
 RUN echo "ENV VARS"
 RUN echo $BRANCH
 RUN echo $REPO
