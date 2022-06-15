@@ -19,6 +19,10 @@ ENV BPAY_ALLOWED=False
 #ENV BRANCH="dev"
 #ENV REPO="park-passes"
 #ENV REPO_NO_DASH="parkpasses"
+RUN echo "ENV VARS"
+RUN echo $BRANCH
+RUN echo $REPO
+RUN echo $REPO_NO_DASH
 
 RUN apt-get clean
 RUN apt-get update
