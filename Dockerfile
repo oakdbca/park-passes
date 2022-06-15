@@ -32,6 +32,7 @@ RUN apt-get install --no-install-recommends -y curl wget git libmagic-dev gcc bi
 RUN apt-get install --no-install-recommends -y sqlite3 vim postgresql-client ssh htop libspatialindex-dev
 
 WORKDIR /app
+RUN mkdir ~/.ssh/
 RUN ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 RUN git clone -v -b $BRANCH git@github.com:dbca-wa/$REPO.git .
 
