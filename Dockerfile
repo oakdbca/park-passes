@@ -25,13 +25,14 @@ RUN echo $BRANCH
 RUN echo $REPO
 RUN echo $REPO_NO_DASH
 
-WORKDIR /app
-RUN git clone -b $BRANCH git@github.com:dbca-wa/$REPO.git .
-
 RUN apt-get clean
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install --no-install-recommends -y curl wget git libmagic-dev gcc binutils libproj-dev gdal-bin
+
+WORKDIR /app
+RUN git clone -b $BRANCH git@github.com:dbca-wa/$REPO.git .
+
 RUN apt-get install --no-install-recommends -y python3-setuptools python3-dev python3-pip tzdata libreoffice cron rsyslog python3.8-venv gunicorn
 RUN apt-get install --no-install-recommends -y libpq-dev patch
 RUN apt-get install --no-install-recommends -y postgresql-client mtr
