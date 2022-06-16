@@ -61,6 +61,7 @@ RUN pwd
 RUN npm install
 RUN npm run build
 WORKDIR /app
+RUN touch /app/.env
 RUN python manage.py collectstatic --no-input
 RUN git log --pretty=medium -30 > ./git_history_recent
 
@@ -80,7 +81,6 @@ RUN crontab /etc/cron.d/dockercron
 RUN touch /var/log/cron.log
 RUN service cron start
 RUN chmod 755 /startup.sh
-RUN touch /app/.env
 EXPOSE 8080
 HEALTHCHECK --interval=1m --timeout=5s --start-period=10s --retries=3 CMD ["wget", "-q", "-O", "-", "http://localhost:8080/"]
 CMD ["/startup.sh"]
