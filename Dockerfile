@@ -33,28 +33,12 @@ RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install --no-install-recommends -y curl wget git libmagic-dev gcc binutils libproj-dev gdal-bin
 RUN apt-get -y install ca-certificates
-RUN update-ca-certificates
 RUN apt-get install --no-install-recommends -y sqlite3 vim postgresql-client ssh htop libspatialindex-dev
-
-#RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-#RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-#RUN apt update
-#RUN apt install gh
-
-WORKDIR /app
-#RUN mkdir ~/.ssh/
-#RUN ssh-keyscan github.com >> ~/.ssh/known_hosts
-#RUN chmod 666 /dev/tty
-#RUN ssh -vT git@github.com
-#RUN git clone -v -b $BRANCH git@github.com:mintcoding/$REPO.git .
-RUN echo "git clone -v -b $BRANCH https://github.com/dbca-wa/$REPO.git"
-RUN git clone -v -b $BRANCH https://github.com/dbca-wa/$REPO.git .
-#RUN gh repo clone dbca-wa/park-passes . -- -b $BRANCH
-
 RUN apt-get install --no-install-recommends -y python3-setuptools python3-dev python3-pip tzdata libreoffice cron rsyslog python3.8-venv gunicorn
 RUN apt-get install --no-install-recommends -y libpq-dev patch
 RUN apt-get install --no-install-recommends -y postgresql-client mtr
 RUN apt-get install --no-install-recommends -y python-pil
+RUN update-ca-certificates
 # install node 16
 RUN touch install_node.sh
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x -o install_node.sh
@@ -63,17 +47,18 @@ RUN apt-get install -y nodejs
 RUN ln -s /usr/bin/python3 /usr/bin/python
 RUN pip install --upgrade pip
 
-#WORKDIR /app
-#RUN git clone -b $BRANCH https://github.com/dbca-wa/$REPO.git .
+WORKDIR /app
+RUN git clone -v -b $BRANCH https://github.com/dbca-wa/$REPO.git .
 
 ENV POETRY_VERSION=1.1.13
 RUN pip install "poetry==$POETRY_VERSION"
 RUN poetry config virtualenvs.create false \
   && poetry install --no-dev --no-interaction --no-ansi
 
-RUN touch /app/rand_hash
-RUN git pull && cd $REPO_NO_DASH/frontend/$REPO_NO_DASH/
-RUN npm run build && cd /app
+RUN cd $REPO_NO_DASH/frontend/$REPO_NO_DASH/
+RUN npm install
+RUN npm run build
+RUN cd /app
 RUN python manage.py collectstatic --no-input
 RUN git log --pretty=medium -30 > ./git_history_recent
 
@@ -85,6 +70,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # (in local) patch /home/<username>/park-passes/.venv/lib/python3.8/site-packages/django/contrib/admin/migrations/0001_initial.py admin.patch.additional
 RUN patch /usr/local/lib/python3.8/dist-packages/django/contrib/admin/migrations/0001_initial.py /app/admin.patch.additional
 
+RUN touch /app/rand_hash
 COPY ./cron /etc/cron.d/dockercron
 RUN service rsyslog start
 RUN chmod 0644 /etc/cron.d/dockercron
