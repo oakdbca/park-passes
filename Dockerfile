@@ -1,5 +1,5 @@
 # Prepare the base environment.
-FROM ubuntu:20.04 as builder_base_parkpasses
+FROM ubuntu:20.04 as builder_base_oim_licensing
 MAINTAINER asi@dbca.wa.gov.au
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -22,11 +22,6 @@ ARG REPO_NO_DASH_ARG
 ENV BRANCH=$BRANCH_ARG
 ENV REPO=$REPO_ARG
 ENV REPO_NO_DASH=$REPO_NO_DASH_ARG
-
-RUN echo "ENV VARS"
-RUN echo $BRANCH
-RUN echo $REPO
-RUN echo $REPO_NO_DASH
 
 RUN apt-get clean
 RUN apt-get update
@@ -56,8 +51,6 @@ RUN poetry config virtualenvs.create false \
   && poetry install --no-dev --no-interaction --no-ansi
 
 WORKDIR $REPO_NO_DASH/frontend/$REPO_NO_DASH/
-RUN echo "pwd"
-RUN pwd
 RUN npm install
 RUN npm run build
 WORKDIR /app
