@@ -13,7 +13,7 @@ REPO_NO_DASH=$(awk '{split($0, arr, "\/"); print arr[2]}' <<< $(git config -l|gr
 BUILD_TAG=dbcawa/$REPO:$1_v$(date +%Y.%m.%d.%H.%M%S)
 
 {
-    docker image build --build-arg REPO=$REPO --build-arg REPO_NO_DASH=$REPO_NO_DASH --build-arg BRANCH=$1 --no-cache --tag $BUILD_TAG . &&
+    docker image build --build-arg REPO_ARG=$REPO --build-arg REPO_NO_DASH_ARG=$REPO_NO_DASH --build-arg BRANCH_ARG=$1 --no-cache --tag $BUILD_TAG . &&
     echo $BUILD_TAG
 } ||
 {
