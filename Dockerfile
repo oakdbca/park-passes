@@ -45,8 +45,8 @@ WORKDIR /app
 #RUN chmod 666 /dev/tty
 #RUN ssh -vT git@github.com
 #RUN git clone -v -b $BRANCH git@github.com:mintcoding/$REPO.git .
-RUN echo "git clone -v -b $BRANCH https://github.com/dbca-wa/$REPO.git"
-RUN git clone -v -b $BRANCH https://github.com/dbca-wa/$REPO.git .
+RUN echo "git clone -v -b ${BRANCH} https://github.com/dbca-wa/${REPO}.git"
+RUN git clone -v -b ${BRANCH} https://github.com/dbca-wa/${REPO}.git .
 #RUN gh repo clone dbca-wa/park-passes . -- -b $BRANCH
 
 RUN apt-get install --no-install-recommends -y python3-setuptools python3-dev python3-pip tzdata libreoffice cron rsyslog python3.8-venv gunicorn
@@ -70,7 +70,7 @@ RUN poetry config virtualenvs.create false \
   && poetry install --no-dev --no-interaction --no-ansi
 
 RUN touch /app/rand_hash
-RUN git pull && cd $REPO_NO_DASH/frontend/$REPO_NO_DASH/
+RUN git pull && cd ${REPO_NO_DASH}/frontend/${REPO_NO_DASH}/
 RUN npm run build && cd /app
 RUN python manage.py collectstatic --no-input
 RUN git log --pretty=medium -30 > ./git_history_recent
