@@ -38,9 +38,9 @@ WORKDIR /app
 #RUN mkdir ~/.ssh/
 #RUN ssh-keyscan github.com >> ~/.ssh/known_hosts
 #RUN chmod 666 /dev/tty
-RUN ssh -vT git@github.com
-RUN git clone -v -b $BRANCH git@github.com:mintcoding/$REPO.git .
-#RUN git clone -v -b $BRANCH https://github.com/dbca-wa/$REPO.git .
+#RUN ssh -vT git@github.com
+#RUN git clone -v -b $BRANCH git@github.com:mintcoding/$REPO.git .
+RUN git clone -v -b $BRANCH https://github.com/dbca-wa/$REPO.git .
 
 RUN apt-get install --no-install-recommends -y python3-setuptools python3-dev python3-pip tzdata libreoffice cron rsyslog python3.8-venv gunicorn
 RUN apt-get install --no-install-recommends -y libpq-dev patch
