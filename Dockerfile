@@ -55,10 +55,12 @@ RUN pip install "poetry==$POETRY_VERSION"
 RUN poetry config virtualenvs.create false \
   && poetry install --no-dev --no-interaction --no-ansi
 
-RUN cd $REPO_NO_DASH/frontend/$REPO_NO_DASH/
+WORKDIR $REPO_NO_DASH/frontend/$REPO_NO_DASH/
+RUN echo "pwd"
+RUN pwd
 RUN npm install
 RUN npm run build
-RUN cd /app
+WORKDIR /app
 RUN python manage.py collectstatic --no-input
 RUN git log --pretty=medium -30 > ./git_history_recent
 
