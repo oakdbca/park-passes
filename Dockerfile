@@ -34,10 +34,10 @@ RUN apt-get -y install ca-certificates
 RUN update-ca-certificates
 RUN apt-get install --no-install-recommends -y sqlite3 vim postgresql-client ssh htop libspatialindex-dev
 
-RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-RUN apt update
-RUN apt install gh
+#RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+#RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+#RUN apt update
+#RUN apt install gh
 
 WORKDIR /app
 #RUN mkdir ~/.ssh/
@@ -45,8 +45,8 @@ WORKDIR /app
 #RUN chmod 666 /dev/tty
 #RUN ssh -vT git@github.com
 #RUN git clone -v -b $BRANCH git@github.com:mintcoding/$REPO.git .
-#RUN git clone -v -b $BRANCH https://github.com/dbca-wa/$REPO.git .
-RUN gh repo clone dbca-wa/park-passes . -- -b $BRANCH
+RUN git clone -v -b $BRANCH https://git@github.com/dbca-wa/$REPO.git .
+#RUN gh repo clone dbca-wa/park-passes . -- -b $BRANCH
 
 RUN apt-get install --no-install-recommends -y python3-setuptools python3-dev python3-pip tzdata libreoffice cron rsyslog python3.8-venv gunicorn
 RUN apt-get install --no-install-recommends -y libpq-dev patch
