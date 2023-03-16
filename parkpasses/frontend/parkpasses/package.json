@@ -28,7 +28,7 @@
     "pinia": "^2.0.29",
     "select2": "^4.0.3",
     "select2-bootstrap-5-theme": "^1.2.0",
-    "sweetalert2": "^11.7.0",
+    "sweetalert2": "^11.7.2",
     "uuid": "^8.3.2",
     "vue": "^3.2.32",
     "vue-router": "^4.0.14"
