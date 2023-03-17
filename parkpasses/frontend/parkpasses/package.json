@@ -25,7 +25,7 @@
     "jszip": "^3.9.1",
     "moment": "^2.29.3",
     "moment-range": "^4.0.2",
-    "pinia": "^2.0.29",
+    "pinia": "^2.0.32",
     "select2": "^4.0.3",
     "select2-bootstrap-5-theme": "^1.2.0",
     "sweetalert2": "^11.7.0",
