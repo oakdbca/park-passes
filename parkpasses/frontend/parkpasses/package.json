@@ -16,7 +16,7 @@
     "@vue/cli-service": "^5.0.4",
     "@vueuse/core": "^9.11.1",
     "currency.js": "^2.0.4",
-    "datatables.net-bs5": "^1.12.1",
+    "datatables.net-bs5": "^1.13.3",
     "datatables.net-buttons-bs5": "^2.3.3",
     "datatables.net-responsive-bs5": "^2.3.0",
     "dompurify": "^2.4.3",
